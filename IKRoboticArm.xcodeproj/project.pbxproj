@@ -19,6 +19,13 @@
 		B44683CC184B402000CBED09 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44683B4184B402000CBED09 /* UIKit.framework */; };
 		B44683D4184B402000CBED09 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B44683D2184B402000CBED09 /* InfoPlist.strings */; };
 		B44683D6184B402000CBED09 /* IKRoboticArmTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B44683D5184B402000CBED09 /* IKRoboticArmTests.m */; };
+		B44683E0184B402E00CBED09 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44683DF184B402E00CBED09 /* OpenGLES.framework */; };
+		B44683E2184B403800CBED09 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44683E1184B403800CBED09 /* GLKit.framework */; };
+		B44683E5184B408300CBED09 /* IKMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B44683E4184B408300CBED09 /* IKMainViewController.m */; };
+		B44683EA184B412600CBED09 /* IKShaderLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = B44683E9184B412600CBED09 /* IKShaderLoader.m */; };
+		B44683F2184B41FB00CBED09 /* IKBone.m in Sources */ = {isa = PBXBuildFile; fileRef = B44683F1184B41FB00CBED09 /* IKBone.m */; };
+		B44683F3184B44CF00CBED09 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = B44683EB184B417500CBED09 /* Shader.fsh */; };
+		B44683F4184B44D200CBED09 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = B44683ED184B41A900CBED09 /* Shader.vsh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +55,17 @@
 		B44683D1184B402000CBED09 /* IKRoboticArmTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IKRoboticArmTests-Info.plist"; sourceTree = "<group>"; };
 		B44683D3184B402000CBED09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B44683D5184B402000CBED09 /* IKRoboticArmTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IKRoboticArmTests.m; sourceTree = "<group>"; };
+		B44683DF184B402E00CBED09 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		B44683E1184B403800CBED09 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		B44683E3184B408300CBED09 /* IKMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKMainViewController.h; sourceTree = "<group>"; };
+		B44683E4184B408300CBED09 /* IKMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKMainViewController.m; sourceTree = "<group>"; };
+		B44683E6184B40EC00CBED09 /* IKCommons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKCommons.h; sourceTree = "<group>"; };
+		B44683E8184B412600CBED09 /* IKShaderLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKShaderLoader.h; sourceTree = "<group>"; };
+		B44683E9184B412600CBED09 /* IKShaderLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKShaderLoader.m; sourceTree = "<group>"; };
+		B44683EB184B417500CBED09 /* Shader.fsh */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = Shader.fsh; sourceTree = "<group>"; };
+		B44683ED184B41A900CBED09 /* Shader.vsh */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = Shader.vsh; sourceTree = "<group>"; };
+		B44683F0184B41FB00CBED09 /* IKBone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKBone.h; sourceTree = "<group>"; };
+		B44683F1184B41FB00CBED09 /* IKBone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKBone.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +73,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B44683E2184B403800CBED09 /* GLKit.framework in Frameworks */,
+				B44683E0184B402E00CBED09 /* OpenGLES.framework in Frameworks */,
 				B44683B3184B402000CBED09 /* CoreGraphics.framework in Frameworks */,
 				B44683B5184B402000CBED09 /* UIKit.framework in Frameworks */,
 				B44683B1184B402000CBED09 /* Foundation.framework in Frameworks */,
@@ -96,6 +116,8 @@
 		B44683AF184B402000CBED09 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B44683E1184B403800CBED09 /* GLKit.framework */,
+				B44683DF184B402E00CBED09 /* OpenGLES.framework */,
 				B44683B0184B402000CBED09 /* Foundation.framework */,
 				B44683B2184B402000CBED09 /* CoreGraphics.framework */,
 				B44683B4184B402000CBED09 /* UIKit.framework */,
@@ -107,8 +129,13 @@
 		B44683B6184B402000CBED09 /* IKRoboticArm */ = {
 			isa = PBXGroup;
 			children = (
+				B44683E6184B40EC00CBED09 /* IKCommons.h */,
+				B44683EF184B41CD00CBED09 /* Models */,
+				B44683E7184B410F00CBED09 /* Shaders */,
 				B44683BF184B402000CBED09 /* IKAppDelegate.h */,
 				B44683C0184B402000CBED09 /* IKAppDelegate.m */,
+				B44683E3184B408300CBED09 /* IKMainViewController.h */,
+				B44683E4184B408300CBED09 /* IKMainViewController.m */,
 				B44683C2184B402000CBED09 /* Images.xcassets */,
 				B44683B7184B402000CBED09 /* Supporting Files */,
 			);
@@ -142,6 +169,26 @@
 				B44683D2184B402000CBED09 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B44683E7184B410F00CBED09 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				B44683E8184B412600CBED09 /* IKShaderLoader.h */,
+				B44683E9184B412600CBED09 /* IKShaderLoader.m */,
+				B44683EB184B417500CBED09 /* Shader.fsh */,
+				B44683ED184B41A900CBED09 /* Shader.vsh */,
+			);
+			name = Shaders;
+			sourceTree = "<group>";
+		};
+		B44683EF184B41CD00CBED09 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B44683F0184B41FB00CBED09 /* IKBone.h */,
+				B44683F1184B41FB00CBED09 /* IKBone.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,6 +267,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B44683F4184B44D200CBED09 /* Shader.vsh in Resources */,
+				B44683F3184B44CF00CBED09 /* Shader.fsh in Resources */,
 				B44683BB184B402000CBED09 /* InfoPlist.strings in Resources */,
 				B44683C3184B402000CBED09 /* Images.xcassets in Resources */,
 			);
@@ -240,6 +289,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B44683E5184B408300CBED09 /* IKMainViewController.m in Sources */,
+				B44683EA184B412600CBED09 /* IKShaderLoader.m in Sources */,
+				B44683F2184B41FB00CBED09 /* IKBone.m in Sources */,
 				B44683C1184B402000CBED09 /* IKAppDelegate.m in Sources */,
 				B44683BD184B402000CBED09 /* main.m in Sources */,
 			);
