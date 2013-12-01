@@ -13,5 +13,6 @@
 - (id)initWithRadius:(GLfloat)radius height:(GLfloat)height stacks:(GLint)stacks;
 - (void)tearDownGL;
 - (BOOL)executeWithP:(const GLKMatrix4 *)projectionMatrix V:(const GLKMatrix4 *)viewMatrix uniforms:(const GLint *)uniforms;
+- (void)setPositionX:(GLfloat)x y:(GLfloat)y z:(GLfloat)z;
 
 @end

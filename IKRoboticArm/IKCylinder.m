@@ -14,6 +14,10 @@
     GLfloat _height;
     GLfloat _stacks;
 
+    GLfloat _posX;
+    GLfloat _posY;
+    GLfloat _poxZ;
+
     GLfloat *_vertexData;
     GLuint _vertexDataSize;
     GLuint _vertexArray;
@@ -36,6 +40,13 @@
     }
 
     return self;
+}
+
+- (void)setPositionX:(GLfloat)x y:(GLfloat)y z:(GLfloat)z
+{
+    _posX = x;
+    _posY = y;
+    _poxZ = z;
 }
 
 - (void)setupGL
@@ -64,6 +75,7 @@
 - (BOOL)executeWithP:(const GLKMatrix4 *)projectionMatrix V:(const GLKMatrix4 *)viewMatrix uniforms:(const GLint *)uniforms
 {
     GLKMatrix4 modelMatrix = GLKMatrix4Identity;
+    modelMatrix = GLKMatrix4Translate(modelMatrix, _posX, _posY, _poxZ);
     GLKMatrix4 modelViewMatrix = GLKMatrix4Multiply(*viewMatrix, modelMatrix);
 
     GLKMatrix3 normalMatrix = GLKMatrix4GetMatrix3(modelViewMatrix);

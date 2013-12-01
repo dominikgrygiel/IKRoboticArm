@@ -24,6 +24,7 @@
 @property (nonatomic, strong) IKBone *bone;
 @property (nonatomic, strong) IKCylinder *cylinder;
 @property (nonatomic, strong) IKSphere *sphere;
+@property (nonatomic, strong) IKCylinder *floor;
 
 @property (nonatomic, strong) UIPinchGestureRecognizer *pinchRecognizer;
 @property (nonatomic, strong) UIPanGestureRecognizer *panRecognizer;
@@ -52,6 +53,8 @@
     self.bone = [[IKBone alloc] initWithWidth:2.0f height:0.2f depth:0.02f stacks:15];
     self.cylinder = [[IKCylinder alloc] initWithRadius:0.2f height:0.1f stacks:30];
     self.sphere = [[IKSphere alloc] initWithRadius:0.1f stacks:30];
+    self.floor = [[IKCylinder alloc] initWithRadius:10.0f height:0.1f stacks:60];
+    [self.floor setPositionX:-1.0f y:0.0f z:0.0f];
 }
 
 - (void)dealloc
@@ -98,6 +101,7 @@
     [self.bone tearDownGL];
     [self.cylinder tearDownGL];
     [self.sphere tearDownGL];
+    [self.floor tearDownGL];
 
     if (_program) {
         glDeleteProgram(_program);
@@ -121,10 +125,10 @@
 
     GLKMatrix4 viewMatrix = GLKMatrix4MakeLookAt(1.0, 0.0, 0.0,
                                                  0.0f, 0.0f, 0.0f,
-                                                 0.0f, 1.0f, 0.0f);
+                                                 0.0f, 0.0f, 1.0f);
     viewMatrix = GLKMatrix4Scale(viewMatrix, _cameraScale, _cameraScale, _cameraScale);
-    viewMatrix = GLKMatrix4Rotate(viewMatrix, _cameraRotationX, 0.0f, 1.0f, 0.0f);
-    viewMatrix = GLKMatrix4Rotate(viewMatrix, _cameraRotationY, 1.0f, 0.0f, 0.0f);
+    viewMatrix = GLKMatrix4Rotate(viewMatrix, _cameraRotationY, 0.0f, 1.0f, 0.0f);
+    viewMatrix = GLKMatrix4Rotate(viewMatrix, _cameraRotationX, 1.0f, 0.0f, 0.0f);
 
     glUseProgram(_program);
     glUniform3f(uniforms[UNIFORM_LIGHT0_POSITION], 1.0f, 1.0f, 1.0f);
@@ -135,6 +139,7 @@
     [self.bone executeWithP:&projectionMatrix V:&viewMatrix uniforms:uniforms];
     [self.cylinder executeWithP:&projectionMatrix V:&viewMatrix uniforms:uniforms];
     [self.sphere executeWithP:&projectionMatrix V:&viewMatrix uniforms:uniforms];
+    [self.floor executeWithP:&projectionMatrix V:&viewMatrix uniforms:uniforms];
 }
 
 #pragma mark - OpenGL ES 2 shader compilation
@@ -182,6 +187,12 @@
     CGPoint velocity = [gesture velocityInView:self.view];
     _cameraRotationX += GLKMathDegreesToRadians(velocity.x / 80);
     _cameraRotationY += GLKMathDegreesToRadians(velocity.y / 80);
+
+    if (_cameraRotationY < -M_PI_2) {
+        _cameraRotationY = -M_PI_2;
+    } else if (_cameraRotationY > 0.2) {
+        _cameraRotationY = 0.2;
+    }
 }
 
 @end
