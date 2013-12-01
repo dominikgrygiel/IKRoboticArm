@@ -9,9 +9,10 @@
 #import "IKMainViewController.h"
 #import "IKCommons.h"
 #import "IKShaderLoader.h"
-#import "IKBone.h"
 #import "IKCylinder.h"
-#import "IKSphere.h"
+#import "IKArm.h"
+
+#define MIN_CAMERA_SCALE 0.1f
 
 @interface IKMainViewController () {
     GLuint _program;
@@ -21,10 +22,8 @@
     GLfloat _cameraRotationY;
 }
 @property (strong, nonatomic) EAGLContext *context;
-@property (nonatomic, strong) IKBone *bone;
-@property (nonatomic, strong) IKCylinder *cylinder;
-@property (nonatomic, strong) IKSphere *sphere;
 @property (nonatomic, strong) IKCylinder *floor;
+@property (nonatomic, strong) IKArm *arm;
 
 @property (nonatomic, strong) UIPinchGestureRecognizer *pinchRecognizer;
 @property (nonatomic, strong) UIPanGestureRecognizer *panRecognizer;
@@ -50,11 +49,12 @@
     [self setupGL];
     [self setupGestureRecognizers];
 
-    self.bone = [[IKBone alloc] initWithWidth:2.0f height:0.2f depth:0.02f stacks:15];
-    self.cylinder = [[IKCylinder alloc] initWithRadius:0.2f height:0.1f stacks:30];
-    self.sphere = [[IKSphere alloc] initWithRadius:0.1f stacks:30];
     self.floor = [[IKCylinder alloc] initWithRadius:10.0f height:0.1f stacks:60];
-    [self.floor setPositionX:-1.0f y:0.0f z:0.0f];
+    [self.floor setPositionX:-2.0f y:0.0f z:0.0f];
+    self.floor.diffuseColor = GLKVector4Make(0.0f, 0.2f, 0.3f, 1.0f);
+
+    self.arm = [[IKArm alloc] init];
+    [self.arm setPositionX:-2.0f y:0.0f z:0.0f];
 }
 
 - (void)dealloc
@@ -89,19 +89,17 @@
     glDisable(GL_FOG);
     glDisable(GL_TEXTURE_2D);
 
-    _cameraScale = 0.4f;
+    _cameraScale = 0.2;
     _cameraRotationX = 0.0f;
-    _cameraRotationY = 0.0f;
+    _cameraRotationY = -M_PI_2;
 }
 
 - (void)tearDownGL
 {
     [EAGLContext setCurrentContext:self.context];
 
-    [self.bone tearDownGL];
-    [self.cylinder tearDownGL];
-    [self.sphere tearDownGL];
     [self.floor tearDownGL];
+    [self.arm tearDownGL];
 
     if (_program) {
         glDeleteProgram(_program);
@@ -135,10 +133,7 @@
     glUniform3f(uniforms[UNIFORM_LIGHT1_POSITION], -1.0f, 1.0f, -1.0f);
 
 
-
-    [self.bone executeWithP:&projectionMatrix V:&viewMatrix uniforms:uniforms];
-    [self.cylinder executeWithP:&projectionMatrix V:&viewMatrix uniforms:uniforms];
-    [self.sphere executeWithP:&projectionMatrix V:&viewMatrix uniforms:uniforms];
+    [self.arm executeWithP:&projectionMatrix V:&viewMatrix uniforms:uniforms];
     [self.floor executeWithP:&projectionMatrix V:&viewMatrix uniforms:uniforms];
 }
 
@@ -155,6 +150,7 @@
     uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(_program, "normalMatrix");
     uniforms[UNIFORM_LIGHT0_POSITION] = glGetUniformLocation(_program, "light0Position");
     uniforms[UNIFORM_LIGHT1_POSITION] = glGetUniformLocation(_program, "light1Position");
+    uniforms[UNIFORM_DIFFUSE_COLOR] = glGetUniformLocation(_program, "diffuseColor");
 
     return YES;
 }
@@ -175,8 +171,8 @@
 {
     _cameraScale += gesture.velocity / 170;
 
-    if (_cameraScale < 0.2f) {
-        _cameraScale = 0.2f;
+    if (_cameraScale < MIN_CAMERA_SCALE) {
+        _cameraScale = MIN_CAMERA_SCALE;
     } else if (_cameraScale > 5.0f) {
         _cameraScale = 5.0f;
     }

@@ -42,6 +42,7 @@
 
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, modelViewProjectionMatrix.m);
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, normalMatrix.m);
+    glUniform4fv(uniforms[UNIFORM_DIFFUSE_COLOR], 1, self.diffuseColor.v);
 
     glBindVertexArrayOES(_vertexArray);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, _vertexDataSize / 6);

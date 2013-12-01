@@ -13,6 +13,8 @@
 
 - (void)setupGL
 {
+    self.diffuseColor = GLKVector4Make(0.4, 0.4, 1.0, 1.0);
+
     glGenVertexArraysOES(1, &_vertexArray);
     glBindVertexArrayOES(_vertexArray);
 
@@ -37,6 +39,9 @@
 - (BOOL)executeWithP:(const GLKMatrix4 *)projectionMatrix V:(const GLKMatrix4 *)viewMatrix uniforms:(const GLint *)uniforms
 {
     GLKMatrix4 modelMatrix = GLKMatrix4Identity;
+    if (_rotX) modelMatrix = GLKMatrix4Rotate(modelMatrix, _rotX, 1.0f, 0.0f, 0.0f);
+    if (_rotY) modelMatrix = GLKMatrix4Rotate(modelMatrix, _rotY, 0.0f, 1.0f, 0.0f);
+    if (_rotZ) modelMatrix = GLKMatrix4Rotate(modelMatrix, _rotZ, 0.0f, 0.0f, 1.0f);
     modelMatrix = GLKMatrix4Translate(modelMatrix, _posX, _posY, _poxZ);
     GLKMatrix4 modelViewMatrix = GLKMatrix4Multiply(*viewMatrix, modelMatrix);
 
@@ -45,6 +50,7 @@
 
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, modelViewProjectionMatrix.m);
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, normalMatrix.m);
+    glUniform4fv(uniforms[UNIFORM_DIFFUSE_COLOR], 1, self.diffuseColor.v);
 
     glBindVertexArrayOES(_vertexArray);
     glDrawArrays(GL_TRIANGLES, 0, _vertexDataSize / 6);
@@ -57,6 +63,13 @@
     _posX = x;
     _posY = y;
     _poxZ = z;
+}
+
+- (void)setRotationX:(GLfloat)x y:(GLfloat)y z:(GLfloat)z
+{
+    _rotX = x;
+    _rotY = y;
+    _rotZ = z;
 }
 
 @end

@@ -15,11 +15,11 @@ uniform mat4 modelViewProjectionMatrix;
 uniform mat3 normalMatrix;
 uniform vec3 light0Position;
 uniform vec3 light1Position;
+uniform vec4 diffuseColor;
 
 void main()
 {
     vec3 eyeNormal = normalize(normalMatrix * normal);
-    vec4 diffuseColor = vec4(0.4, 0.4, 1.0, 1.0);
 
     float nDotVP0 = max(0.0, dot(eyeNormal, normalize(light0Position)));
     float nDotVP1 = max(0.0, dot(eyeNormal, normalize(light1Position)));
