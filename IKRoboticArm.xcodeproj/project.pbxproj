@@ -26,6 +26,7 @@
 		B44683F2184B41FB00CBED09 /* IKBone.m in Sources */ = {isa = PBXBuildFile; fileRef = B44683F1184B41FB00CBED09 /* IKBone.m */; };
 		B44683F3184B44CF00CBED09 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = B44683EB184B417500CBED09 /* Shader.fsh */; };
 		B44683F4184B44D200CBED09 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = B44683ED184B41A900CBED09 /* Shader.vsh */; };
+		B44683F7184B45CC00CBED09 /* IKCylinder.m in Sources */ = {isa = PBXBuildFile; fileRef = B44683F6184B45CC00CBED09 /* IKCylinder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,8 @@
 		B44683ED184B41A900CBED09 /* Shader.vsh */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = Shader.vsh; sourceTree = "<group>"; };
 		B44683F0184B41FB00CBED09 /* IKBone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKBone.h; sourceTree = "<group>"; };
 		B44683F1184B41FB00CBED09 /* IKBone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKBone.m; sourceTree = "<group>"; };
+		B44683F5184B45CC00CBED09 /* IKCylinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKCylinder.h; sourceTree = "<group>"; };
+		B44683F6184B45CC00CBED09 /* IKCylinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKCylinder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +190,8 @@
 			children = (
 				B44683F0184B41FB00CBED09 /* IKBone.h */,
 				B44683F1184B41FB00CBED09 /* IKBone.m */,
+				B44683F5184B45CC00CBED09 /* IKCylinder.h */,
+				B44683F6184B45CC00CBED09 /* IKCylinder.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -290,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B44683E5184B408300CBED09 /* IKMainViewController.m in Sources */,
+				B44683F7184B45CC00CBED09 /* IKCylinder.m in Sources */,
 				B44683EA184B412600CBED09 /* IKShaderLoader.m in Sources */,
 				B44683F2184B41FB00CBED09 /* IKBone.m in Sources */,
 				B44683C1184B402000CBED09 /* IKAppDelegate.m in Sources */,
