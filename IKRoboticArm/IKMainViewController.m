@@ -11,6 +11,7 @@
 #import "IKShaderLoader.h"
 #import "IKBone.h"
 #import "IKCylinder.h"
+#import "IKSphere.h"
 
 @interface IKMainViewController () {
     GLuint _program;
@@ -22,6 +23,7 @@
 @property (strong, nonatomic) EAGLContext *context;
 @property (nonatomic, strong) IKBone *bone;
 @property (nonatomic, strong) IKCylinder *cylinder;
+@property (nonatomic, strong) IKSphere *sphere;
 
 @property (nonatomic, strong) UIPinchGestureRecognizer *pinchRecognizer;
 @property (nonatomic, strong) UIPanGestureRecognizer *panRecognizer;
@@ -49,6 +51,7 @@
 
     self.bone = [[IKBone alloc] initWithWidth:2.0f height:0.2f depth:0.02f stacks:15];
     self.cylinder = [[IKCylinder alloc] initWithRadius:0.2f height:0.1f stacks:30];
+    self.sphere = [[IKSphere alloc] initWithRadius:0.1f stacks:30];
 }
 
 - (void)dealloc
@@ -94,6 +97,7 @@
 
     [self.bone tearDownGL];
     [self.cylinder tearDownGL];
+    [self.sphere tearDownGL];
 
     if (_program) {
         glDeleteProgram(_program);
@@ -130,6 +134,7 @@
 
     [self.bone executeWithP:&projectionMatrix V:&viewMatrix uniforms:uniforms];
     [self.cylinder executeWithP:&projectionMatrix V:&viewMatrix uniforms:uniforms];
+    [self.sphere executeWithP:&projectionMatrix V:&viewMatrix uniforms:uniforms];
 }
 
 #pragma mark - OpenGL ES 2 shader compilation

@@ -20,7 +20,6 @@
     GLuint _vertexArray;
     GLuint _vertexBuffer;
 }
-
 @end
 
 
