@@ -190,8 +190,8 @@
 
     if (_cameraRotationY < -M_PI_2) {
         _cameraRotationY = -M_PI_2;
-    } else if (_cameraRotationY > 0.2) {
-        _cameraRotationY = 0.2;
+    } else if (_cameraRotationY > 0) {
+        _cameraRotationY = 0;
     }
 }
 

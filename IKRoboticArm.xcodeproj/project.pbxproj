@@ -28,6 +28,7 @@
 		B44683F4184B44D200CBED09 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = B44683ED184B41A900CBED09 /* Shader.vsh */; };
 		B44683F7184B45CC00CBED09 /* IKCylinder.m in Sources */ = {isa = PBXBuildFile; fileRef = B44683F6184B45CC00CBED09 /* IKCylinder.m */; };
 		B44683FA184B4E1800CBED09 /* IKSphere.m in Sources */ = {isa = PBXBuildFile; fileRef = B44683F9184B4E1800CBED09 /* IKSphere.m */; };
+		B44683FD184B68A200CBED09 /* IKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B44683FC184B68A200CBED09 /* IKModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,8 @@
 		B44683F6184B45CC00CBED09 /* IKCylinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKCylinder.m; sourceTree = "<group>"; };
 		B44683F8184B4E1800CBED09 /* IKSphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKSphere.h; sourceTree = "<group>"; };
 		B44683F9184B4E1800CBED09 /* IKSphere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKSphere.m; sourceTree = "<group>"; };
+		B44683FB184B68A200CBED09 /* IKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKModel.h; sourceTree = "<group>"; };
+		B44683FC184B68A200CBED09 /* IKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +194,8 @@
 		B44683EF184B41CD00CBED09 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B44683FB184B68A200CBED09 /* IKModel.h */,
+				B44683FC184B68A200CBED09 /* IKModel.m */,
 				B44683F0184B41FB00CBED09 /* IKBone.h */,
 				B44683F1184B41FB00CBED09 /* IKBone.m */,
 				B44683F5184B45CC00CBED09 /* IKCylinder.h */,
@@ -300,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B44683FA184B4E1800CBED09 /* IKSphere.m in Sources */,
+				B44683FD184B68A200CBED09 /* IKModel.m in Sources */,
 				B44683E5184B408300CBED09 /* IKMainViewController.m in Sources */,
 				B44683F7184B45CC00CBED09 /* IKCylinder.m in Sources */,
 				B44683EA184B412600CBED09 /* IKShaderLoader.m in Sources */,
