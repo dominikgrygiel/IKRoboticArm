@@ -28,6 +28,7 @@
 - (void)setupGL;
 - (void)tearDownGL;
 - (BOOL)executeWithP:(const GLKMatrix4 *)projectionMatrix V:(const GLKMatrix4 *)viewMatrix uniforms:(const GLint *)uniforms;
+- (BOOL)executeWithP:(const GLKMatrix4 *)projectionMatrix V:(const GLKMatrix4 *)viewMatrix M:(const GLKMatrix4 *)modelMatrix uniforms:(const GLint *)uniforms;
 - (void)setPositionX:(GLfloat)x y:(GLfloat)y z:(GLfloat)z;
 - (void)setRotationX:(GLfloat)x y:(GLfloat)y z:(GLfloat)z;
 

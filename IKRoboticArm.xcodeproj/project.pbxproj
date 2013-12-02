@@ -520,6 +520,7 @@
 				B44683DB184B402000CBED09 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B44683DC184B402000CBED09 /* Build configuration list for PBXNativeTarget "IKRoboticArmTests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +529,7 @@
 				B44683DE184B402000CBED09 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
