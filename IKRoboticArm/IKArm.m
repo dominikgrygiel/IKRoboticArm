@@ -34,6 +34,7 @@ const GLfloat kBone2Width = 1.5f;
 
 @property (nonatomic, strong) IKCylinder *base;
 @property (nonatomic, strong) IKCylinder *baseJoint;
+@property (nonatomic, strong) IKCylinder *joint;
 
 @property (nonatomic, strong) IKBone *bone0;
 @property (nonatomic, strong) IKBone *bone1;
@@ -48,6 +49,8 @@ const GLfloat kBone2Width = 1.5f;
     if ((self = [super init])) {
         self.base = [[IKCylinder alloc] initWithRadius:1.0f height:0.1f stacks:10];
         self.baseJoint = [[IKCylinder alloc] initWithRadius:kBaseJointRadius height:kBaseJointHeight stacks:kBaseJointStacks];
+
+        self.joint = [[IKCylinder alloc] initWithRadius:0.08f height:kBaseJointHeight stacks:kBaseJointStacks];
 
         self.bone0 = [[IKBone alloc] initWithWidth:kBone0Width height:kBoneHeight depth:kBoneDepth stacks:kBoneStacks];
         self.bone1 = [[IKBone alloc] initWithWidth:kBone1Width height:kBoneHeight depth:kBoneDepth stacks:kBoneStacks];
@@ -64,7 +67,8 @@ const GLfloat kBone2Width = 1.5f;
 - (void)tearDownGL
 {
     [self.base tearDownGL];
-    [self.base tearDownGL];
+    [self.baseJoint tearDownGL];
+    [self.joint tearDownGL];
 
     [self.bone0 tearDownGL];
     [self.bone1 tearDownGL];
@@ -113,6 +117,13 @@ const GLfloat kBone2Width = 1.5f;
     modelMatrixBone2_1 = GLKMatrix4Rotate(modelMatrixBone2_1, _rotBone2, 1.0f, 0.0f, 0.0f);
     modelMatrixBone2_1 = GLKMatrix4Translate(modelMatrixBone2_1, 0.0f, 0.0f, kBone2Width / 2 - kBoneHeight / 2);
     [self.bone2 executeWithP:projectionMatrix V:&V M:&modelMatrixBone2_1 uniforms:uniforms];
+
+
+    GLKMatrix4 modelMatrixJoint_1 = GLKMatrix4Translate(modelMatrixBone1_0, kBoneDepth * 2 - kBaseJointHeight, 0.0f, -kBone1Width / 2 + kBoneHeight / 2);
+    [self.joint executeWithP:projectionMatrix V:&V M:&modelMatrixJoint_1 uniforms:uniforms];
+
+    GLKMatrix4 modelMatrixJoint_2 = GLKMatrix4Translate(modelMatrixBone2_0, kBoneDepth * 3 - kBaseJointHeight, 0.0f, -kBone2Width / 2 + kBoneHeight / 2);
+    [self.joint executeWithP:projectionMatrix V:&V M:&modelMatrixJoint_2 uniforms:uniforms];
 
     _rotBone0 = 1.2 * M_PI_4;
     _rotBone1 = -M_PI_2;
