@@ -125,9 +125,7 @@ const GLfloat kBone2Width = 1.5f;
     GLKMatrix4 modelMatrixJoint_2 = GLKMatrix4Translate(modelMatrixBone2_0, kBoneDepth * 3 - kBaseJointHeight, 0.0f, -kBone2Width / 2 + kBoneHeight / 2);
     [self.joint executeWithP:projectionMatrix V:&V M:&modelMatrixJoint_2 uniforms:uniforms];
 
-    _rotBone0 = 1.2 * M_PI_4;
-    _rotBone1 = -M_PI_2;
-    _rotBone2 = -M_PI_4;
+    [self setAnglesForBone0:1.2 * M_PI_2 bone1:M_PI_2 bone2:1.2 * M_PI_4];
     return YES;
 }
 
@@ -136,6 +134,13 @@ const GLfloat kBone2Width = 1.5f;
     _posX = x;
     _posY = y;
     _posZ = z;
+}
+
+- (void)setAnglesForBone0:(GLfloat)bone0 bone1:(GLfloat)bone1 bone2:(GLfloat)bone2
+{
+    _rotBone0 = bone0;
+    _rotBone1 = bone1 - M_PI;
+    _rotBone2 = bone2 - M_PI;
 }
 
 @end
