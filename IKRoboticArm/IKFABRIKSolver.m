@@ -8,8 +8,8 @@
 
 #import "IKFABRIKSolver.h"
 
-#define TOLERANCE 0.1
-#define MAX_ITERATIONS 10
+#define TOLERANCE 0.001
+#define MAX_ITERATIONS 50
 
 @implementation IKFABRIKSolver
 
@@ -50,10 +50,9 @@
         iterations++;
     }
 
-
     for (int i = 0; i < joints - 1; i++) {
-        GLKVector2 sub = GLKVector2Subtract(positions[i], positions[i+1]);
-        newAngles[i] = atan(sub.x / sub.y) + (i ? M_PI : 0);
+        GLKVector2 sub = GLKVector2Subtract(positions[i+1], positions[i]);
+        newAngles[i] = atan2f(sub.y, sub.x) + (i ? M_PI : 0);
     }
 }
 

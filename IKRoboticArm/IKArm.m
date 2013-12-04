@@ -36,6 +36,9 @@ const GLfloat kBone3Height = 0.16f;
     GLfloat _rotBone2;
     GLfloat _rotBone3;
     GLfloat _rotBase;
+
+    BOOL _findNewTarget;
+    GLfloat _currY;
 }
 
 @property (nonatomic, strong) IKCylinder *base;
@@ -46,8 +49,6 @@ const GLfloat kBone3Height = 0.16f;
 @property (nonatomic, strong) IKBone *bone1;
 @property (nonatomic, strong) IKBone *bone2;
 @property (nonatomic, strong) IKBone *bone3;
-
-@property (nonatomic) GLfloat *jointDistances;
 
 @end
 
@@ -75,10 +76,17 @@ const GLfloat kBone3Height = 0.16f;
         [self setAnglesForBone0:M_PI_2 bone1:M_PI bone2:M_PI bone3:M_PI baseRotation:-M_PI_2];
 
 
-        self.jointDistances = (GLfloat[4]){kBone0Width - kBoneHeight, kBone1Width - kBoneHeight, kBone2Width - kBoneHeight, kBone3Width};
-        [self findNewAngles];
+        _findNewTarget = YES;
+        _currY = -0.5;
+        [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(updateCurrY) userInfo:nil repeats:YES];
     }
     return  self;
+}
+
+- (void)updateCurrY
+{
+    _currY += 0.01;
+    _findNewTarget = YES;
 }
 
 - (void)tearDownGL
@@ -158,6 +166,10 @@ const GLfloat kBone3Height = 0.16f;
     [self.joint executeWithP:projectionMatrix V:&V M:&modelMatrixJoint_3 uniforms:uniforms];
 
 
+    if (_findNewTarget) {
+        [self findNewAngles];
+    }
+
     return YES;
 }
 
@@ -179,8 +191,11 @@ const GLfloat kBone3Height = 0.16f;
 
 - (void)findNewAngles
 {
+    _findNewTarget = NO;
+
     GLfloat newAngles[4];
-    [IKFABRIKSolver findNewAngles:newAngles forJoints:5 angles:(GLfloat[4]){_rotBone0, _rotBone1, _rotBone2, _rotBone3} lenghts:self.jointDistances target:GLKVector2Make(4.0f, 0.0f)];
+    GLfloat jointDistances[4] = {kBone0Width - kBoneHeight, kBone1Width - kBoneHeight, kBone2Width - kBoneHeight, kBone3Width - kBone3Height / 2 - kBoneHeight / 2};
+    [IKFABRIKSolver findNewAngles:newAngles forJoints:5 angles:(GLfloat[4]){_rotBone0, _rotBone1, _rotBone2, _rotBone3} lenghts:jointDistances target:GLKVector2Make(4.0f, _currY)];
 
     [self setAnglesForBone0:newAngles[0] bone1:newAngles[1] bone2:newAngles[2] bone3:newAngles[3] baseRotation:-M_PI_2];
 }
