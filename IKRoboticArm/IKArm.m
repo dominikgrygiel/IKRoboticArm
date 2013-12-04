@@ -9,6 +9,7 @@
 #import "IKArm.h"
 #import "IKBone.h"
 #import "IKCylinder.h"
+#import "IKFABRIKSolver.h"
 
 const GLfloat kBaseJointRadius = 0.4f;
 const GLfloat kBaseJointHeight = 0.35f;
@@ -46,6 +47,8 @@ const GLfloat kBone3Height = 0.16f;
 @property (nonatomic, strong) IKBone *bone2;
 @property (nonatomic, strong) IKBone *bone3;
 
+@property (nonatomic) GLfloat *jointDistances;
+
 @end
 
 
@@ -68,7 +71,12 @@ const GLfloat kBone3Height = 0.16f;
         [self.baseJoint setRotationX:0.0f y:0.0f z:M_PI_2];
         [self.baseJoint setPositionX:0.0f y:-0.3f z:0.0f];
 
-        [self setAnglesForBone0:1.3 * M_PI_2 bone1:M_PI_2 bone2:M_PI_2 bone3:M_PI_4 * 3 baseRotation:-M_PI_2];
+
+        [self setAnglesForBone0:M_PI_2 bone1:M_PI bone2:M_PI bone3:M_PI baseRotation:-M_PI_2];
+
+
+        self.jointDistances = (GLfloat[4]){kBone0Width - kBoneHeight, kBone1Width - kBoneHeight, kBone2Width - kBoneHeight, kBone3Width};
+        [self findNewAngles];
     }
     return  self;
 }
@@ -108,34 +116,34 @@ const GLfloat kBone3Height = 0.16f;
 
 
     GLKMatrix4 modelMatrixBone1_0 = GLKMatrix4Translate(modelMatrixBone0_0, kBoneDepth, 0.0f, kBone0Width / 2 - kBoneHeight / 2);
-    modelMatrixBone1_0 = GLKMatrix4Rotate(modelMatrixBone1_0, _rotBone1, 1.0f, 0.0f, 0.0f);
+    modelMatrixBone1_0 = GLKMatrix4Rotate(modelMatrixBone1_0, _rotBone1 - M_PI, 1.0f, 0.0f, 0.0f);
     modelMatrixBone1_0 = GLKMatrix4Translate(modelMatrixBone1_0, 0.0f, 0.0f, kBone1Width / 2 - kBoneHeight / 2);
     [self.bone1 executeWithP:projectionMatrix V:&V M:&modelMatrixBone1_0 uniforms:uniforms];
 
     GLKMatrix4 modelMatrixBone1_1 = GLKMatrix4Translate(modelMatrixBone0_1, -kBoneDepth, 0.0f, kBone0Width / 2 - kBoneHeight / 2);
-    modelMatrixBone1_1 = GLKMatrix4Rotate(modelMatrixBone1_1, _rotBone1, 1.0f, 0.0f, 0.0f);
+    modelMatrixBone1_1 = GLKMatrix4Rotate(modelMatrixBone1_1, _rotBone1 - M_PI, 1.0f, 0.0f, 0.0f);
     modelMatrixBone1_1 = GLKMatrix4Translate(modelMatrixBone1_1, 0.0f, 0.0f, kBone1Width / 2 - kBoneHeight / 2);
     [self.bone1 executeWithP:projectionMatrix V:&V M:&modelMatrixBone1_1 uniforms:uniforms];
 
 
     GLKMatrix4 modelMatrixBone2_0 = GLKMatrix4Translate(modelMatrixBone1_0, -kBoneDepth, 0.0f, kBone1Width / 2 - kBoneHeight / 2);
-    modelMatrixBone2_0 = GLKMatrix4Rotate(modelMatrixBone2_0, _rotBone2, 1.0f, 0.0f, 0.0f);
+    modelMatrixBone2_0 = GLKMatrix4Rotate(modelMatrixBone2_0, _rotBone2 - M_PI, 1.0f, 0.0f, 0.0f);
     modelMatrixBone2_0 = GLKMatrix4Translate(modelMatrixBone2_0, 0.0f, 0.0f, kBone2Width / 2 - kBoneHeight / 2);
     [self.bone2 executeWithP:projectionMatrix V:&V M:&modelMatrixBone2_0 uniforms:uniforms];
 
     GLKMatrix4 modelMatrixBone2_1 = GLKMatrix4Translate(modelMatrixBone1_1, kBoneDepth, 0.0f, kBone1Width / 2 - kBoneHeight / 2);
-    modelMatrixBone2_1 = GLKMatrix4Rotate(modelMatrixBone2_1, _rotBone2, 1.0f, 0.0f, 0.0f);
+    modelMatrixBone2_1 = GLKMatrix4Rotate(modelMatrixBone2_1, _rotBone2 - M_PI, 1.0f, 0.0f, 0.0f);
     modelMatrixBone2_1 = GLKMatrix4Translate(modelMatrixBone2_1, 0.0f, 0.0f, kBone2Width / 2 - kBoneHeight / 2);
     [self.bone2 executeWithP:projectionMatrix V:&V M:&modelMatrixBone2_1 uniforms:uniforms];
 
 
     GLKMatrix4 modelMatrixBone3_0 = GLKMatrix4Translate(modelMatrixBone2_0, -kBoneDepth - 0.05f, 0.0f, kBone2Width / 2 - kBone3Height / 2);
-    modelMatrixBone3_0 = GLKMatrix4Rotate(modelMatrixBone3_0, _rotBone3, 1.0f, 0.0f, 0.0f);
+    modelMatrixBone3_0 = GLKMatrix4Rotate(modelMatrixBone3_0, _rotBone3 - M_PI, 1.0f, 0.0f, 0.0f);
     modelMatrixBone3_0 = GLKMatrix4Translate(modelMatrixBone3_0, 0.0f, 0.0f, kBone3Width / 2 - kBone3Height / 2);
     [self.bone3 executeWithP:projectionMatrix V:&V M:&modelMatrixBone3_0 uniforms:uniforms];
 
     GLKMatrix4 modelMatrixBone3_1 = GLKMatrix4Translate(modelMatrixBone2_1, kBoneDepth + 0.05f, 0.0f, kBone2Width / 2 - kBone3Height / 2);
-    modelMatrixBone3_1 = GLKMatrix4Rotate(modelMatrixBone3_1, _rotBone3, 1.0f, 0.0f, 0.0f);
+    modelMatrixBone3_1 = GLKMatrix4Rotate(modelMatrixBone3_1, _rotBone3 - M_PI, 1.0f, 0.0f, 0.0f);
     modelMatrixBone3_1 = GLKMatrix4Translate(modelMatrixBone3_1, 0.0f, 0.0f, kBone3Width / 2 - kBone3Height / 2);
     [self.bone3 executeWithP:projectionMatrix V:&V M:&modelMatrixBone3_1 uniforms:uniforms];
 
@@ -163,10 +171,18 @@ const GLfloat kBone3Height = 0.16f;
 - (void)setAnglesForBone0:(GLfloat)bone0 bone1:(GLfloat)bone1 bone2:(GLfloat)bone2 bone3:(GLfloat)bone3 baseRotation:(GLfloat)base
 {
     _rotBone0 = bone0;
-    _rotBone1 = bone1 - M_PI;
-    _rotBone2 = bone2 - M_PI;
-    _rotBone3 = bone3 - M_PI;
+    _rotBone1 = bone1;
+    _rotBone2 = bone2;
+    _rotBone3 = bone3;
     _rotBase = base;
+}
+
+- (void)findNewAngles
+{
+    GLfloat newAngles[4];
+    [IKFABRIKSolver findNewAngles:newAngles forJoints:5 angles:(GLfloat[4]){_rotBone0, _rotBone1, _rotBone2, _rotBone3} lenghts:self.jointDistances target:GLKVector2Make(4.0f, 0.0f)];
+
+    [self setAnglesForBone0:newAngles[0] bone1:newAngles[1] bone2:newAngles[2] bone3:newAngles[3] baseRotation:-M_PI_2];
 }
 
 @end

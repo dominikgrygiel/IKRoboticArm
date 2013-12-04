@@ -30,6 +30,7 @@
 		B44683FA184B4E1800CBED09 /* IKSphere.m in Sources */ = {isa = PBXBuildFile; fileRef = B44683F9184B4E1800CBED09 /* IKSphere.m */; };
 		B44683FD184B68A200CBED09 /* IKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B44683FC184B68A200CBED09 /* IKModel.m */; };
 		B4468400184B7A8400CBED09 /* IKArm.m in Sources */ = {isa = PBXBuildFile; fileRef = B44683FF184B7A8400CBED09 /* IKArm.m */; };
+		B4C6CE30184F38CF00D695C2 /* IKFABRIKSolver.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C6CE2F184F38CF00D695C2 /* IKFABRIKSolver.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,8 @@
 		B44683FC184B68A200CBED09 /* IKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKModel.m; sourceTree = "<group>"; };
 		B44683FE184B7A8400CBED09 /* IKArm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKArm.h; sourceTree = "<group>"; };
 		B44683FF184B7A8400CBED09 /* IKArm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKArm.m; sourceTree = "<group>"; };
+		B4C6CE2E184F38CF00D695C2 /* IKFABRIKSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKFABRIKSolver.h; sourceTree = "<group>"; };
+		B4C6CE2F184F38CF00D695C2 /* IKFABRIKSolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKFABRIKSolver.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +145,8 @@
 			isa = PBXGroup;
 			children = (
 				B44683E6184B40EC00CBED09 /* IKCommons.h */,
+				B4C6CE2E184F38CF00D695C2 /* IKFABRIKSolver.h */,
+				B4C6CE2F184F38CF00D695C2 /* IKFABRIKSolver.m */,
 				B44683EF184B41CD00CBED09 /* Models */,
 				B44683E7184B410F00CBED09 /* Shaders */,
 				B44683BF184B402000CBED09 /* IKAppDelegate.h */,
@@ -312,6 +317,7 @@
 				B44683FA184B4E1800CBED09 /* IKSphere.m in Sources */,
 				B44683FD184B68A200CBED09 /* IKModel.m in Sources */,
 				B44683E5184B408300CBED09 /* IKMainViewController.m in Sources */,
+				B4C6CE30184F38CF00D695C2 /* IKFABRIKSolver.m in Sources */,
 				B4468400184B7A8400CBED09 /* IKArm.m in Sources */,
 				B44683F7184B45CC00CBED09 /* IKCylinder.m in Sources */,
 				B44683EA184B412600CBED09 /* IKShaderLoader.m in Sources */,
