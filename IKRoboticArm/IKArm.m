@@ -40,7 +40,6 @@ const GLfloat kBall0Radius = kBaseJointHeight/2 - kBoneDepth - 0.05f;
     GLfloat _rotBone3;
     GLfloat _rotBase;
 
-    BOOL _findNewTarget;
     GLfloat _currY;
 }
 
@@ -73,6 +72,7 @@ const GLfloat kBall0Radius = kBaseJointHeight/2 - kBoneDepth - 0.05f;
         self.bone3 = [[IKBone alloc] initWithWidth:kBone3Width height:kBone3Height depth:kBoneDepth stacks:kBoneStacks];
 
         self.ball0 = [[IKSphere alloc] initWithRadius:kBall0Radius stacks:60];
+        _currY = kBall0Radius + 0.1f;
 
         [self.base setPositionX:0.1f y:0.0f z:0.0f];
 
@@ -81,19 +81,8 @@ const GLfloat kBall0Radius = kBaseJointHeight/2 - kBoneDepth - 0.05f;
 
 
         [self setAnglesForBone0:M_PI_2 bone1:M_PI bone2:M_PI bone3:M_PI baseRotation:-M_PI_2];
-
-
-        _findNewTarget = YES;
-        _currY = kBall0Radius + 0.1f;
-        [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(updateCurrY) userInfo:nil repeats:YES];
     }
     return  self;
-}
-
-- (void)updateCurrY
-{
-    _currY += 0.01;
-    _findNewTarget = YES;
 }
 
 - (void)tearDownGL
@@ -116,7 +105,8 @@ const GLfloat kBall0Radius = kBaseJointHeight/2 - kBoneDepth - 0.05f;
     [self.base executeWithP:projectionMatrix V:&V uniforms:uniforms];
     [self.baseJoint executeWithP:projectionMatrix V:&V uniforms:uniforms];
 
-    [self.ball0 setPositionX:_currY y:0.0f z:4.0f];
+    _currY += 0.03;
+    [self.ball0 setPositionX:_currY y:0.0f z:6.0f - _currY];
     [self.ball0 executeWithP:projectionMatrix V:&V uniforms:uniforms];
 
     GLKMatrix4 modelMatrixBone0_0 = GLKMatrix4MakeRotation(M_PI_2, 0.0f, 0.0f, 1.0f);
@@ -175,9 +165,7 @@ const GLfloat kBall0Radius = kBaseJointHeight/2 - kBoneDepth - 0.05f;
     [self.joint executeWithP:projectionMatrix V:&V M:&modelMatrixJoint_3 uniforms:uniforms];
 
 
-    if (_findNewTarget) {
-        [self findNewAngles];
-    }
+    [self findNewAngles];
 
     return YES;
 }
@@ -200,11 +188,9 @@ const GLfloat kBall0Radius = kBaseJointHeight/2 - kBoneDepth - 0.05f;
 
 - (void)findNewAngles
 {
-    _findNewTarget = NO;
-
     GLfloat newAngles[4];
     GLfloat jointDistances[4] = {kBone0Width - kBoneHeight, kBone1Width - kBoneHeight, kBone2Width - kBoneHeight, kBone3Width - kBone3Height / 2};
-    [IKFABRIKSolver findNewAngles:newAngles forJoints:5 angles:(GLfloat[4]){_rotBone0, _rotBone1, _rotBone2, _rotBone3} lenghts:jointDistances target:GLKVector2Make(4.0f, _currY)];
+    [IKFABRIKSolver findNewAngles:newAngles forJoints:5 angles:(GLfloat[4]){_rotBone0, _rotBone1, _rotBone2, _rotBone3} lenghts:jointDistances target:GLKVector2Make(6.0f - _currY, _currY)];
 
     [self setAnglesForBone0:newAngles[0] bone1:newAngles[1] bone2:newAngles[2] bone3:newAngles[3] baseRotation:-M_PI_2];
 }
