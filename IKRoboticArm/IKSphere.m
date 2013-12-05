@@ -38,7 +38,6 @@
     if (_rotY) modelMatrix = GLKMatrix4Rotate(modelMatrix, _rotY, 0.0f, 1.0f, 0.0f);
     if (_rotZ) modelMatrix = GLKMatrix4Rotate(modelMatrix, _rotZ, 0.0f, 0.0f, 1.0f);
     modelMatrix = GLKMatrix4Translate(modelMatrix, _posX, _posY, _poxZ);
-    modelMatrix = GLKMatrix4Translate(modelMatrix, _posX, _posY, _poxZ);
     GLKMatrix4 modelViewMatrix = GLKMatrix4Multiply(*viewMatrix, modelMatrix);
 
     GLKMatrix3 normalMatrix = GLKMatrix4GetMatrix3(modelViewMatrix);

@@ -9,6 +9,7 @@
 #import "IKArm.h"
 #import "IKBone.h"
 #import "IKCylinder.h"
+#import "IKSphere.h"
 #import "IKFABRIKSolver.h"
 
 const GLfloat kBaseJointRadius = 0.4f;
@@ -25,6 +26,8 @@ const GLfloat kBone2Width = 1.5f;
 
 const GLfloat kBone3Width = 0.7f;
 const GLfloat kBone3Height = 0.16f;
+
+const GLfloat kBall0Radius = kBaseJointHeight/2 - kBoneDepth - 0.05f;
 
 @interface IKArm () {
     GLfloat _posX;
@@ -50,6 +53,8 @@ const GLfloat kBone3Height = 0.16f;
 @property (nonatomic, strong) IKBone *bone2;
 @property (nonatomic, strong) IKBone *bone3;
 
+@property (nonatomic, strong) IKSphere *ball0;
+
 @end
 
 
@@ -67,6 +72,8 @@ const GLfloat kBone3Height = 0.16f;
         self.bone2 = [[IKBone alloc] initWithWidth:kBone2Width height:kBoneHeight depth:kBoneDepth stacks:kBoneStacks];
         self.bone3 = [[IKBone alloc] initWithWidth:kBone3Width height:kBone3Height depth:kBoneDepth stacks:kBoneStacks];
 
+        self.ball0 = [[IKSphere alloc] initWithRadius:kBall0Radius stacks:60];
+
         [self.base setPositionX:0.1f y:0.0f z:0.0f];
 
         [self.baseJoint setRotationX:0.0f y:0.0f z:M_PI_2];
@@ -77,7 +84,7 @@ const GLfloat kBone3Height = 0.16f;
 
 
         _findNewTarget = YES;
-        _currY = -0.5;
+        _currY = kBall0Radius + 0.1f;
         [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(updateCurrY) userInfo:nil repeats:YES];
     }
     return  self;
@@ -109,6 +116,8 @@ const GLfloat kBone3Height = 0.16f;
     [self.base executeWithP:projectionMatrix V:&V uniforms:uniforms];
     [self.baseJoint executeWithP:projectionMatrix V:&V uniforms:uniforms];
 
+    [self.ball0 setPositionX:_currY y:0.0f z:4.0f];
+    [self.ball0 executeWithP:projectionMatrix V:&V uniforms:uniforms];
 
     GLKMatrix4 modelMatrixBone0_0 = GLKMatrix4MakeRotation(M_PI_2, 0.0f, 0.0f, 1.0f);
     modelMatrixBone0_0 = GLKMatrix4Translate(modelMatrixBone0_0, kBaseJointHeight / 2 + kBoneDepth / 2, -0.5f, 0.0f);
@@ -194,7 +203,7 @@ const GLfloat kBone3Height = 0.16f;
     _findNewTarget = NO;
 
     GLfloat newAngles[4];
-    GLfloat jointDistances[4] = {kBone0Width - kBoneHeight, kBone1Width - kBoneHeight, kBone2Width - kBoneHeight, kBone3Width - kBone3Height / 2 - kBoneHeight / 2};
+    GLfloat jointDistances[4] = {kBone0Width - kBoneHeight, kBone1Width - kBoneHeight, kBone2Width - kBoneHeight, kBone3Width - kBone3Height / 2};
     [IKFABRIKSolver findNewAngles:newAngles forJoints:5 angles:(GLfloat[4]){_rotBone0, _rotBone1, _rotBone2, _rotBone3} lenghts:jointDistances target:GLKVector2Make(4.0f, _currY)];
 
     [self setAnglesForBone0:newAngles[0] bone1:newAngles[1] bone2:newAngles[2] bone3:newAngles[3] baseRotation:-M_PI_2];

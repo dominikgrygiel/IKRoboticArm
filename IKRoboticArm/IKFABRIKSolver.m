@@ -50,9 +50,11 @@
         iterations++;
     }
 
+
+    theta = 0;
     for (int i = 0; i < joints - 1; i++) {
         GLKVector2 sub = GLKVector2Subtract(positions[i+1], positions[i]);
-        newAngles[i] = atan2f(sub.y, sub.x) + (i ? M_PI : 0);
+        newAngles[i] = (i ? M_PI - theta : 0) + (theta = atan2f(sub.y, sub.x));
     }
 }
 
