@@ -10,7 +10,7 @@
 #import "IKCommons.h"
 #import "IKShaderLoader.h"
 #import "IKCylinder.h"
-#import "IKArm.h"
+#import "IKScene.h"
 
 #define MIN_CAMERA_SCALE 0.1f
 
@@ -23,7 +23,7 @@
 }
 @property (strong, nonatomic) EAGLContext *context;
 @property (nonatomic, strong) IKCylinder *floor;
-@property (nonatomic, strong) IKArm *arm;
+@property (nonatomic, strong) IKScene *scene;
 
 @property (nonatomic, strong) UIPinchGestureRecognizer *pinchRecognizer;
 @property (nonatomic, strong) UIPanGestureRecognizer *panRecognizer;
@@ -53,8 +53,7 @@
     [self.floor setPositionX:-2.0f y:0.0f z:0.0f];
     self.floor.diffuseColor = GLKVector4Make(0.0f, 0.2f, 0.3f, 1.0f);
 
-    self.arm = [[IKArm alloc] init];
-    [self.arm setPositionX:-2.0f y:0.0f z:0.0f];
+    self.scene = [[IKScene alloc] init];
 }
 
 - (void)dealloc
@@ -90,7 +89,7 @@
     glDisable(GL_TEXTURE_2D);
 
     _cameraScale = 0.2;
-    _cameraRotationX = 0.0f;
+    _cameraRotationX = -M_PI_2;
     _cameraRotationY = -M_PI_2;
 }
 
@@ -99,7 +98,7 @@
     [EAGLContext setCurrentContext:self.context];
 
     [self.floor tearDownGL];
-    [self.arm tearDownGL];
+    [self.scene tearDownGL];
 
     if (_program) {
         glDeleteProgram(_program);
@@ -133,7 +132,7 @@
     glUniform3f(uniforms[UNIFORM_LIGHT1_POSITION], -1.0f, 1.0f, -1.0f);
 
 
-    [self.arm executeWithP:&projectionMatrix V:&viewMatrix uniforms:uniforms];
+    [self.scene executeWithP:&projectionMatrix V:&viewMatrix uniforms:uniforms];
     [self.floor executeWithP:&projectionMatrix V:&viewMatrix uniforms:uniforms];
 }
 

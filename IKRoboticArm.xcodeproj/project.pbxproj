@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B4064B1C185C667E00762FF9 /* IKScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B4064B1B185C667E00762FF9 /* IKScene.m */; };
 		B44683B1184B402000CBED09 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44683B0184B402000CBED09 /* Foundation.framework */; };
 		B44683B3184B402000CBED09 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44683B2184B402000CBED09 /* CoreGraphics.framework */; };
 		B44683B5184B402000CBED09 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44683B4184B402000CBED09 /* UIKit.framework */; };
@@ -44,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B4064B1A185C667E00762FF9 /* IKScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKScene.h; sourceTree = "<group>"; };
+		B4064B1B185C667E00762FF9 /* IKScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKScene.m; sourceTree = "<group>"; };
 		B44683AD184B402000CBED09 /* IKRoboticArm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IKRoboticArm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B44683B0184B402000CBED09 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B44683B2184B402000CBED09 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -212,6 +215,8 @@
 				B44683F9184B4E1800CBED09 /* IKSphere.m */,
 				B44683FE184B7A8400CBED09 /* IKArm.h */,
 				B44683FF184B7A8400CBED09 /* IKArm.m */,
+				B4064B1A185C667E00762FF9 /* IKScene.h */,
+				B4064B1B185C667E00762FF9 /* IKScene.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -321,6 +326,7 @@
 				B4468400184B7A8400CBED09 /* IKArm.m in Sources */,
 				B44683F7184B45CC00CBED09 /* IKCylinder.m in Sources */,
 				B44683EA184B412600CBED09 /* IKShaderLoader.m in Sources */,
+				B4064B1C185C667E00762FF9 /* IKScene.m in Sources */,
 				B44683F2184B41FB00CBED09 /* IKBone.m in Sources */,
 				B44683C1184B402000CBED09 /* IKAppDelegate.m in Sources */,
 				B44683BD184B402000CBED09 /* main.m in Sources */,

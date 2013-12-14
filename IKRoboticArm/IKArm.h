@@ -8,7 +8,12 @@
 
 #import <GLKit/GLKit.h>
 
+
 @interface IKArm : NSObject
+
+@property GLKVector2 target;
+
++ (GLfloat)ballRadius;
 
 - (void)tearDownGL;
 - (BOOL)executeWithP:(const GLKMatrix4 *)projectionMatrix V:(const GLKMatrix4 *)viewMatrix uniforms:(const GLint *)uniforms;
