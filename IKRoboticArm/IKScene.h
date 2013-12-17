@@ -8,7 +8,11 @@
 
 #import <GLKit/GLKit.h>
 
+@class DGJoyStickView;
+
 @interface IKScene : NSObject
+
+@property (nonatomic, weak) DGJoyStickView *joystick;
 
 - (void)tearDownGL;
 - (BOOL)executeWithP:(const GLKMatrix4 *)projectionMatrix V:(const GLKMatrix4 *)viewMatrix uniforms:(const GLint *)uniforms;

@@ -7,14 +7,14 @@
 //
 
 #import "IKAppDelegate.h"
-#import "IKMainViewController.h"
+#import "IKContainerViewController.h"
 
 @implementation IKAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = [[IKMainViewController alloc] init];
+    self.window.rootViewController = [[IKContainerViewController alloc] init];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

@@ -95,9 +95,9 @@ const GLfloat kBallRadius = kBaseJointHeight/2 - kBoneDepth - 0.05f;
 - (BOOL)executeWithP:(const GLKMatrix4 *)projectionMatrix V:(const GLKMatrix4 *)viewMatrix uniforms:(const GLint *)uniforms
 {
     GLKMatrix4 V = GLKMatrix4Translate(*viewMatrix, _posX, _posY, _posZ);
-    V = GLKMatrix4Rotate(V, self.baseRotation, 1.0f, 0.0f, 0.0f);
 
     [self.base executeWithP:projectionMatrix V:&V uniforms:uniforms];
+    V = GLKMatrix4Rotate(V, self.baseRotation, 1.0f, 0.0f, 0.0f);
     [self.baseJoint executeWithP:projectionMatrix V:&V uniforms:uniforms];
 
 

@@ -23,7 +23,6 @@
 }
 @property (strong, nonatomic) EAGLContext *context;
 @property (nonatomic, strong) IKCylinder *floor;
-@property (nonatomic, strong) IKScene *scene;
 
 @property (nonatomic, strong) UIPinchGestureRecognizer *pinchRecognizer;
 @property (nonatomic, strong) UIPanGestureRecognizer *panRecognizer;
@@ -53,7 +52,7 @@
     [self.floor setPositionX:-2.0f y:0.0f z:0.0f];
     self.floor.diffuseColor = GLKVector4Make(0.0f, 0.2f, 0.3f, 1.0f);
 
-    self.scene = [[IKScene alloc] init];
+    _scene = [[IKScene alloc] init];
 }
 
 - (void)dealloc

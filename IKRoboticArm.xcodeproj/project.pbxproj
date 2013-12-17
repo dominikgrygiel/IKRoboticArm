@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		B4064B1C185C667E00762FF9 /* IKScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B4064B1B185C667E00762FF9 /* IKScene.m */; };
+		B40A6AF21860E79E007DF1C8 /* DGJoyStickView.m in Sources */ = {isa = PBXBuildFile; fileRef = B40A6AF11860E79E007DF1C8 /* DGJoyStickView.m */; };
+		B40A6AF61860F062007DF1C8 /* stick_base.png in Resources */ = {isa = PBXBuildFile; fileRef = B40A6AF31860F062007DF1C8 /* stick_base.png */; };
+		B40A6AF71860F062007DF1C8 /* stick_hold.png in Resources */ = {isa = PBXBuildFile; fileRef = B40A6AF41860F062007DF1C8 /* stick_hold.png */; };
+		B40A6AF81860F062007DF1C8 /* stick_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = B40A6AF51860F062007DF1C8 /* stick_normal.png */; };
+		B40A6AFC1860FB36007DF1C8 /* IKContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B40A6AFB1860FB36007DF1C8 /* IKContainerViewController.m */; };
 		B44683B1184B402000CBED09 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44683B0184B402000CBED09 /* Foundation.framework */; };
 		B44683B3184B402000CBED09 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44683B2184B402000CBED09 /* CoreGraphics.framework */; };
 		B44683B5184B402000CBED09 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44683B4184B402000CBED09 /* UIKit.framework */; };
@@ -47,6 +52,13 @@
 /* Begin PBXFileReference section */
 		B4064B1A185C667E00762FF9 /* IKScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKScene.h; sourceTree = "<group>"; };
 		B4064B1B185C667E00762FF9 /* IKScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKScene.m; sourceTree = "<group>"; };
+		B40A6AF01860E79E007DF1C8 /* DGJoyStickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGJoyStickView.h; sourceTree = "<group>"; };
+		B40A6AF11860E79E007DF1C8 /* DGJoyStickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGJoyStickView.m; sourceTree = "<group>"; };
+		B40A6AF31860F062007DF1C8 /* stick_base.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stick_base.png; sourceTree = "<group>"; };
+		B40A6AF41860F062007DF1C8 /* stick_hold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stick_hold.png; sourceTree = "<group>"; };
+		B40A6AF51860F062007DF1C8 /* stick_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stick_normal.png; sourceTree = "<group>"; };
+		B40A6AFA1860FB36007DF1C8 /* IKContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKContainerViewController.h; sourceTree = "<group>"; };
+		B40A6AFB1860FB36007DF1C8 /* IKContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKContainerViewController.m; sourceTree = "<group>"; };
 		B44683AD184B402000CBED09 /* IKRoboticArm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IKRoboticArm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B44683B0184B402000CBED09 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B44683B2184B402000CBED09 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -112,9 +124,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B40A6AEF1860E773007DF1C8 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				B40A6AF91860F066007DF1C8 /* Images */,
+				B40A6AF01860E79E007DF1C8 /* DGJoyStickView.h */,
+				B40A6AF11860E79E007DF1C8 /* DGJoyStickView.m */,
+			);
+			name = lib;
+			sourceTree = "<group>";
+		};
+		B40A6AF91860F066007DF1C8 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				B40A6AF31860F062007DF1C8 /* stick_base.png */,
+				B40A6AF41860F062007DF1C8 /* stick_hold.png */,
+				B40A6AF51860F062007DF1C8 /* stick_normal.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		B44683A4184B402000CBED09 = {
 			isa = PBXGroup;
 			children = (
+				B40A6AEF1860E773007DF1C8 /* lib */,
 				B44683B6184B402000CBED09 /* IKRoboticArm */,
 				B44683CF184B402000CBED09 /* IKRoboticArmTests */,
 				B44683AF184B402000CBED09 /* Frameworks */,
@@ -154,6 +187,8 @@
 				B44683E7184B410F00CBED09 /* Shaders */,
 				B44683BF184B402000CBED09 /* IKAppDelegate.h */,
 				B44683C0184B402000CBED09 /* IKAppDelegate.m */,
+				B40A6AFA1860FB36007DF1C8 /* IKContainerViewController.h */,
+				B40A6AFB1860FB36007DF1C8 /* IKContainerViewController.m */,
 				B44683E3184B408300CBED09 /* IKMainViewController.h */,
 				B44683E4184B408300CBED09 /* IKMainViewController.m */,
 				B44683C2184B402000CBED09 /* Images.xcassets */,
@@ -298,9 +333,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B44683F4184B44D200CBED09 /* Shader.vsh in Resources */,
+				B40A6AF61860F062007DF1C8 /* stick_base.png in Resources */,
 				B44683F3184B44CF00CBED09 /* Shader.fsh in Resources */,
 				B44683BB184B402000CBED09 /* InfoPlist.strings in Resources */,
 				B44683C3184B402000CBED09 /* Images.xcassets in Resources */,
+				B40A6AF71860F062007DF1C8 /* stick_hold.png in Resources */,
+				B40A6AF81860F062007DF1C8 /* stick_normal.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +357,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B40A6AFC1860FB36007DF1C8 /* IKContainerViewController.m in Sources */,
 				B44683FA184B4E1800CBED09 /* IKSphere.m in Sources */,
 				B44683FD184B68A200CBED09 /* IKModel.m in Sources */,
 				B44683E5184B408300CBED09 /* IKMainViewController.m in Sources */,
@@ -328,6 +367,7 @@
 				B44683EA184B412600CBED09 /* IKShaderLoader.m in Sources */,
 				B4064B1C185C667E00762FF9 /* IKScene.m in Sources */,
 				B44683F2184B41FB00CBED09 /* IKBone.m in Sources */,
+				B40A6AF21860E79E007DF1C8 /* DGJoyStickView.m in Sources */,
 				B44683C1184B402000CBED09 /* IKAppDelegate.m in Sources */,
 				B44683BD184B402000CBED09 /* main.m in Sources */,
 			);

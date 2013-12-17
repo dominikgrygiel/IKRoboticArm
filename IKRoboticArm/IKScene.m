@@ -9,6 +9,7 @@
 #import "IKScene.h"
 #import "IKSphere.h"
 #import "IKArm.h"
+#import "DGJoyStickView.h"
 
 const GLfloat kArmOffset = -2.0f;
 const GLint kBallStacks = 40;
@@ -19,6 +20,7 @@ const GLint kBallStacks = 40;
     GLKVector3 _ball2Position;
 
     GLfloat _currY;
+    GLfloat _baseRotation;
     CGFloat kBallRadius;
 }
 
@@ -57,9 +59,11 @@ const GLint kBallStacks = 40;
 
 - (BOOL)executeWithP:(const GLKMatrix4 *)projectionMatrix V:(const GLKMatrix4 *)viewMatrix uniforms:(const GLint *)uniforms
 {
+    _baseRotation += self.joystick.currentPosition.x / -30;
     if (_currY < 3.0f) {
         _currY += 0.02;
     }
+
     _ball0Position.x = _currY;
     _ball0Position.z = 6.0f - _currY;
 
@@ -81,7 +85,7 @@ const GLint kBallStacks = 40;
     [self.ball2 executeWithP:projectionMatrix V:viewMatrix uniforms:uniforms];
 
     self.arm.target = GLKVector2Make(6.0 - _currY, _currY);
-    self.arm.baseRotation = 0.0f;
+    self.arm.baseRotation = _baseRotation;
     [self.arm executeWithP:projectionMatrix V:viewMatrix uniforms:uniforms];
 
     return YES;
