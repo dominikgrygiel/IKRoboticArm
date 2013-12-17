@@ -39,7 +39,6 @@ const GLfloat kBallRadius = kBaseJointHeight/2 - kBoneDepth - 0.05f;
     GLfloat _rotBone1;
     GLfloat _rotBone2;
     GLfloat _rotBone3;
-    GLfloat _rotBase;
 }
 
 @property (nonatomic, strong) IKCylinder *base;
@@ -96,6 +95,7 @@ const GLfloat kBallRadius = kBaseJointHeight/2 - kBoneDepth - 0.05f;
 - (BOOL)executeWithP:(const GLKMatrix4 *)projectionMatrix V:(const GLKMatrix4 *)viewMatrix uniforms:(const GLint *)uniforms
 {
     GLKMatrix4 V = GLKMatrix4Translate(*viewMatrix, _posX, _posY, _posZ);
+    V = GLKMatrix4Rotate(V, self.baseRotation, 1.0f, 0.0f, 0.0f);
 
     [self.base executeWithP:projectionMatrix V:&V uniforms:uniforms];
     [self.baseJoint executeWithP:projectionMatrix V:&V uniforms:uniforms];
@@ -169,15 +169,6 @@ const GLfloat kBallRadius = kBaseJointHeight/2 - kBoneDepth - 0.05f;
     _posZ = z;
 }
 
-- (void)setAnglesForBone0:(GLfloat)bone0 bone1:(GLfloat)bone1 bone2:(GLfloat)bone2 bone3:(GLfloat)bone3 baseRotation:(GLfloat)base
-{
-    _rotBone0 = bone0;
-    _rotBone1 = bone1;
-    _rotBone2 = bone2;
-    _rotBone3 = bone3;
-    _rotBase = base;
-}
-
 - (void)findNewAngles
 {
     GLfloat newAngles[4];
@@ -186,7 +177,10 @@ const GLfloat kBallRadius = kBaseJointHeight/2 - kBoneDepth - 0.05f;
     GLfloat angles[4] = {M_PI_2, 0, 0, 0};
     [IKFABRIKSolver findNewAngles:newAngles forJoints:5 angles:angles lenghts:jointDistances target:self.target];
 
-    [self setAnglesForBone0:newAngles[0] bone1:newAngles[1] bone2:newAngles[2] bone3:newAngles[3] baseRotation:-M_PI_2];
+    _rotBone0 = newAngles[0];
+    _rotBone1 = newAngles[1];
+    _rotBone2 = newAngles[2];
+    _rotBone3 = newAngles[3];
 }
 
 @end
