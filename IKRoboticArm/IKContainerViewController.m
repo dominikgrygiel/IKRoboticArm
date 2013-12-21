@@ -28,7 +28,9 @@
     [self addChildViewController:self.mainViewController];
     [self.view addSubview:self.mainViewController.view];
 
-    self.joystick = [[DGJoyStickView alloc] initWithFrame:CGRectMake(0, 20, 128, 128)];
+    CGSize viewSize = self.view.frame.size;
+    GLfloat y = MIN(viewSize.width, viewSize.height) - 128;
+    self.joystick = [[DGJoyStickView alloc] initWithFrame:CGRectMake(0, y, 128, 128)];
     self.mainViewController.scene.joystick = self.joystick;
     [self.view addSubview:self.joystick];
 }
