@@ -26,7 +26,9 @@ const GLint kBallStacks = 40;
 
     BOOL _isAnimating;
     BOOL _isHoldingTarget;
+    BOOL _isPuttingBack;
     GLint _currTarget;
+    GLint _prevTarget;
     GLfloat _baseRotation;
     CGFloat kBallRadius;
 }
@@ -48,6 +50,7 @@ const GLint kBallStacks = 40;
         _currTarget = NO_TARGET;
         _isAnimating = NO;
         _isHoldingTarget = NO;
+        _isPuttingBack = NO;
 
         kBallRadius = [IKArm ballRadius];
         self.ball0 = [[IKSphere alloc] initWithRadius:kBallRadius stacks:kBallStacks];
@@ -81,7 +84,11 @@ const GLint kBallStacks = 40;
 
 - (BOOL)executeWithP:(const GLKMatrix4 *)projectionMatrix V:(const GLKMatrix4 *)viewMatrix uniforms:(const GLint *)uniforms
 {
-    [self animateToTarget];
+    if (_isPuttingBack) {
+        [self putBack];
+    } else {
+        [self animateToTarget];
+    }
     if (!_isAnimating) {
         _baseRotation += self.joystick.currentPosition.x / -30;
         _targetPosition.x += self.joystick.currentPosition.y / -20;
@@ -187,6 +194,42 @@ const GLint kBallStacks = 40;
     }
 }
 
+- (void)putBack
+{
+    _isAnimating = YES;
+    GLfloat yDelta = 0.0f;
+
+    if (_isHoldingTarget) {
+        yDelta = kBallRadius - _targetPosition.y;
+    } else {
+        yDelta = HOLDING_Y - _targetPosition.y;
+    }
+
+
+    if (yDelta < 0) {
+        _targetPosition.y += MAX(-ANIMATION_STEP, yDelta);
+    } else {
+        _targetPosition.y += MIN(ANIMATION_STEP, yDelta);
+    }
+
+    if (_isHoldingTarget) {
+        if (_prevTarget == 0) {
+            _ball0Position.x = _targetPosition.y;
+        } else if (_prevTarget == 1) {
+            _ball1Position.x = _targetPosition.y;
+        } else if (_prevTarget == 2) {
+            _ball2Position.x = _targetPosition.y;
+        }
+    }
+
+    if (yDelta == 0.0f && _isHoldingTarget) {
+        _isHoldingTarget = NO;
+    } else if (yDelta == 0.0f) {
+        _isPuttingBack = NO;
+        _isAnimating = NO;
+    }
+}
+
 - (void)addjustTargetPosition
 {
     if (_currTarget == 0) {
@@ -207,6 +250,10 @@ const GLint kBallStacks = 40;
         return;
     }
 
+    if (_isHoldingTarget) {
+        _isPuttingBack = YES;
+        _prevTarget = _currTarget;
+    }
     if (_currTarget == target) {
         _currTarget = NO_TARGET;
     } else {
