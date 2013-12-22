@@ -24,7 +24,6 @@ const GLint kBallStacks = 40;
     GLKVector3 _ball2Position;
     GLKVector2 _targetPosition;
 
-    BOOL _canChangeTarget;
     BOOL _isAnimating;
     BOOL _isHoldingTarget;
     GLint _currTarget;
@@ -47,7 +46,6 @@ const GLint kBallStacks = 40;
         [self.arm setPositionX:kArmOffset y:0.0f z:0.0f];
         _targetPosition = GLKVector2Make(1.0f, HOLDING_Y);
         _currTarget = NO_TARGET;
-        _canChangeTarget = YES;
         _isAnimating = NO;
         _isHoldingTarget = NO;
 
@@ -88,6 +86,10 @@ const GLint kBallStacks = 40;
         _baseRotation += self.joystick.currentPosition.x / -30;
         _targetPosition.x += self.joystick.currentPosition.y / -20;
         _targetPosition.x = MAX(MIN(_targetPosition.x, 6.3f), 1.0f);
+
+        if (_isHoldingTarget) {
+            [self addjustTargetPosition];
+        }
     }
 
     _baseRotation = fmodl(_baseRotation, 2 * M_PI);
@@ -115,48 +117,46 @@ const GLint kBallStacks = 40;
         return;
     }
 
-    _canChangeTarget = NO;
     _isAnimating = YES;
     GLfloat xDelta = 0.0f, yDelta = 0.0f, rotDelta = 0.0f;
 
     if (_currTarget == 0) {
-        xDelta = GLKVector2Length(GLKVector2Make(_ball0Position.y, _ball0Position.z)) - _targetPosition.x;
-        rotDelta = atan2f(-_ball0Position.y, _ball0Position.z);
-        if (rotDelta < 0) rotDelta += 2 * M_PI;
-        rotDelta -= _baseRotation;
-
-
         if (_isHoldingTarget) {
             yDelta = HOLDING_Y - _targetPosition.y;
             _ball0Position.x = _targetPosition.y;
+        } else {
+            xDelta = GLKVector2Length(GLKVector2Make(_ball0Position.y, _ball0Position.z)) - _targetPosition.x;
+            rotDelta = atan2f(-_ball0Position.y, _ball0Position.z);
+            if (rotDelta < 0) rotDelta += 2 * M_PI;
+            rotDelta -= _baseRotation;
         }
         if ((rotDelta == 0.0f) && (xDelta == 0.0f) && !_isHoldingTarget) {
             yDelta = _ball0Position.x - _targetPosition.y;
             if (yDelta == 0.0f) _isHoldingTarget = YES;
         }
     } else if (_currTarget == 1) {
-        xDelta = GLKVector2Length(GLKVector2Make(_ball1Position.y, _ball1Position.z)) - _targetPosition.x;
-        rotDelta = atan2f(-_ball1Position.y, _ball1Position.z);
-        if (rotDelta < 0) rotDelta += 2 * M_PI;
-        rotDelta -= _baseRotation;
-
         if (_isHoldingTarget) {
             yDelta = HOLDING_Y - _targetPosition.y;
             _ball1Position.x = _targetPosition.y;
+        } else {
+            xDelta = GLKVector2Length(GLKVector2Make(_ball1Position.y, _ball1Position.z)) - _targetPosition.x;
+            rotDelta = atan2f(-_ball1Position.y, _ball1Position.z);
+            if (rotDelta < 0) rotDelta += 2 * M_PI;
+            rotDelta -= _baseRotation;
         }
         if ((rotDelta == 0.0f) && (xDelta == 0.0f) && !_isHoldingTarget) {
             yDelta = _ball1Position.x - _targetPosition.y;
             if (yDelta == 0.0f) _isHoldingTarget = YES;
         }
     } else if (_currTarget == 2) {
-        xDelta = GLKVector2Length(GLKVector2Make(_ball2Position.y, _ball2Position.z)) - _targetPosition.x;
-        rotDelta = atan2f(-_ball2Position.y, _ball2Position.z);
-        if (rotDelta < 0) rotDelta += 2 * M_PI;
-        rotDelta -= _baseRotation;
-
         if (_isHoldingTarget) {
             yDelta = HOLDING_Y - _targetPosition.y;
             _ball2Position.x = _targetPosition.y;
+        } else {
+            xDelta = GLKVector2Length(GLKVector2Make(_ball2Position.y, _ball2Position.z)) - _targetPosition.x;
+            rotDelta = atan2f(-_ball2Position.y, _ball2Position.z);
+            if (rotDelta < 0) rotDelta += 2 * M_PI;
+            rotDelta -= _baseRotation;
         }
         if ((rotDelta == 0.0f) && (xDelta == 0.0f) && !_isHoldingTarget) {
             yDelta = _ball2Position.x - _targetPosition.y;
@@ -187,9 +187,23 @@ const GLint kBallStacks = 40;
     }
 }
 
+- (void)addjustTargetPosition
+{
+    if (_currTarget == 0) {
+        _ball0Position.z = cosf(_baseRotation) * _targetPosition.x;
+        _ball0Position.y = -sinf(_baseRotation) * _targetPosition.x;
+    } else if (_currTarget == 1) {
+        _ball1Position.z = cosf(_baseRotation) * _targetPosition.x;
+        _ball1Position.y = -sinf(_baseRotation) * _targetPosition.x;
+    } else if (_currTarget == 2) {
+        _ball2Position.z = cosf(_baseRotation) * _targetPosition.x;
+        _ball2Position.y = -sinf(_baseRotation) * _targetPosition.x;
+    }
+}
+
 - (void)didSelectTarget:(GLint)target
 {
-    if (!_canChangeTarget) {
+    if (_isAnimating) {
         return;
     }
 
