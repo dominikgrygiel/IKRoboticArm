@@ -21,8 +21,8 @@ void main()
 {
     vec3 eyeNormal = normalize(normalMatrix * normal);
 
-    float nDotVP0 = max(0.0, dot(eyeNormal, normalize(light0Position)));
-    float nDotVP1 = max(0.0, dot(eyeNormal, normalize(light1Position)));
+    float nDotVP0 = max(0.15, dot(eyeNormal, normalize(light0Position)));
+    float nDotVP1 = max(0.15, dot(eyeNormal, normalize(light1Position)));
 
     colorVarying = diffuseColor * nDotVP0 + diffuseColor * nDotVP1;
 

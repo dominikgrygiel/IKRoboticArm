@@ -81,11 +81,8 @@
 
     glEnable(GL_DEPTH_TEST);
     glDisable(GL_DITHER);
-    glDisable(GL_ALPHA_TEST);
     glDisable(GL_BLEND);
     glDisable(GL_STENCIL_TEST);
-    glDisable(GL_FOG);
-    glDisable(GL_TEXTURE_2D);
 
     _cameraScale = 0.2;
     _cameraRotationX = -M_PI_2;
@@ -127,8 +124,8 @@
     viewMatrix = GLKMatrix4Rotate(viewMatrix, _cameraRotationX, 1.0f, 0.0f, 0.0f);
 
     glUseProgram(_program);
-    glUniform3f(uniforms[UNIFORM_LIGHT0_POSITION], 1.0f, 1.0f, 1.0f);
-    glUniform3f(uniforms[UNIFORM_LIGHT1_POSITION], -1.0f, 1.0f, -1.0f);
+    glUniform3fv(uniforms[UNIFORM_LIGHT0_POSITION], 1, GLKMatrix4MultiplyAndProjectVector3(viewMatrix, GLKVector3Make(100.0f, -100.0f, 0.0f)).v);
+    glUniform3fv(uniforms[UNIFORM_LIGHT1_POSITION], 1, GLKMatrix4MultiplyAndProjectVector3(viewMatrix, GLKVector3Make(100.0f, 100.0f, 0.0f)).v);
 
 
     [self.scene executeWithP:&projectionMatrix V:&viewMatrix uniforms:uniforms];
